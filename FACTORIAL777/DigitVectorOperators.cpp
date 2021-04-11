@@ -3,11 +3,11 @@
 
 using namespace std;
 
-// Returns the sum of digit vectors using oveloaded operator +
-vector <char> operator + (const vector <char>& v1, const vector <char>& v2)
+// Returns the sum of a digit vectors using oveloaded operator +
+vector <char> operator + (vector <char>& x, vector <char>& y)
 {
-	vector <char> x, y, result;
-	x = v1; y = v2;
+	vector <char> result;
+	
 	// Vector y will always has max length
 	if (x.size() > y.size()) swap(x, y);
 	// Filling vector x with zeros in tail to conform vector y
@@ -47,7 +47,7 @@ vector <char> operator + (const vector <char>& v1, const vector <char>& v2)
 }
 
 
-//Returns product of two digit vector using overloaded operator *
+//Returns product of a two digit vector using overloaded operator *
 vector <char> operator * (const vector <char>& x, const vector <char>& y)
 {
 	vector <char> term_one, term_two;
@@ -57,7 +57,7 @@ vector <char> operator * (const vector <char>& x, const vector <char>& y)
 		for (size_t k = 0; k < y.size(); ++k) {
 			term_one.push_back(x[i] * y[k]);
 		}
-		// Insert zeros in head of vector for provide shifting 
+		// Insert zeros in head of the vector for provide shifting 
 		term_one.insert(term_one.begin(), i, 0);
 		// Summation of the two equal sized vectors
 		term_two = term_one + term_two;
@@ -68,7 +68,7 @@ vector <char> operator * (const vector <char>& x, const vector <char>& y)
 }
 
 
-//Returns result of subtraction of two digit vectors using overloaded operator -
+//Returns result of subtraction for a two digit vectors using overloaded operator -
 vector <char> operator - (const vector <char>& v1, const vector <char>& v2) {
 
 	vector <char> x, y, result;
