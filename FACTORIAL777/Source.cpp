@@ -1,190 +1,85 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+/*THIS PROGRAM IMPLEMENTS FACTORIAL CALCULATION FOR A VERY BIG NUMBERS USING VECTORS THAT
+PRESENT A DIGITS OF NUMBER IN EACH ELEMENT
+@author Igor Samoylov
+2021
+*/
 
-using namespace std;
+#include "BigFactorialProject.h"
 
-vector <short int> operator + (const vector <short int> &v1, const vector <short int> &v2) // Функция перегружает штатный оператор сложения для использования с векторами
+void main()
 {
+	std::vector <char> output_vector;
+	unsigned long long n;
+	std::cout << "Enter the number" << std::endl;
+	std::cin >> n;
+	//TODO: check the number input
 	
+
+	//If n < 1301 program will use fast recursion method, else will use more slow cycle 
+	if (n < 1301) output_vector = factorial(vectorizator(n));
 	
-	vector <short int> x, y, result;
-	x = v1; y = v2; 
-	if (x.size() > y.size()) swap(x, y);  // Длина вектора y всегда максимальна
-	x.insert(x.end(), y.size() - x.size(), 0); // Дополняем вектор x до длины вектора y нулями в конце
+	else output_vector = factorial_iteration_cycle(n); 
 
-	for (size_t i = 0; i < y.size(); ++i) {
-
-		result.push_back(x [i] + y [i]);           // Простое сложение элементов векторов
-
+	//Removes appeared zeros in a higher bits and provide length reduction for the output vector
+	for (size_t i = output_vector.size() - 1; output_vector[i] == 0; --i) { 
+		output_vector.resize(output_vector.size() - 1);
 	}
-	
-short int k;
 
-size_t Logic;
-	do                                            // Поиск переполненных разрядов и перенос в старший разряд
-	{
-	   for (size_t i = 0; i < result.size(); ++i) {
+	//std::reverse(output_vector.begin(), output_vector.end()); 
 
-	        k = result [i];
-	        
-			if (k > 9) {
-
-	             result [i] = k % 10;
-				 if (i < result.size() - 1) result[i + 1] += k / 10;
-	             else result.emplace(result.end(), k / 10); // Дополняем результирующий вектор новым разрядом в конце
-	        }
-	    }
-	    Logic = 0;
-	    for (size_t i = 0; i < result.size(); ++i) {
-			if (result[i] < 10) ++Logic;            // Тестируем, чтобы во всем результирующем векторе не было неперенесенных разрядов больше 9
-	    }
-	
+	//Reverse ouput vector reading with higher bits in a left
+	for (size_t i = output_vector.size(); i > 0; --i) {
+		std::cout << (int)output_vector[i - 1];  
 	}
-	while (Logic < result.size() - 1);
 
-return result;
+	std::cout << std::endl << "Factorial has " << output_vector.size() << " digits!";
+	
 }
 
 
+// Transforms the input integer number into char vector that contains one digit in each element
+std::vector <char> vectorizator(unsigned long long n) {    
 
-vector <short int> operator * (const vector <short int> &x, const vector <short int> &y)     // Функция перегружает штатный оператор умножения для использования с векторами
-{
-	vector <short int> term_one, term_two;
-	
-	for (size_t i = 0; i < x.size(); ++i) {
+	std::vector <char> result;
 
-		for (size_t k = 0; k < y.size(); ++k) {
-		
-			term_one.push_back(x[i] * y[k]);     //Наполняем вектор текущей суммы умножением каждого разряда
-		
-		}
+	while (n > 0) {
 
-		term_one.insert(term_one.begin(), i, 0); // Добавляем нули в начало вектора текущей суммы для сдвига
-		term_two = term_one + term_two;          // Сложение двух векторов перегруженным оператором +
-		term_one.clear();                        // Очистка вектора текущей суммы
+		result.push_back(n % 10);
+		n = n / 10;
 	}
 
-return term_two;
+	return result;
 }
 
-vector <short int> operator - (const vector <short int> &v1, const vector <short int> &v2) { // Перегруженный оператор вычитания для поразрядных векторов чисел
+// Recursive implementation of Factorial calculating for a big numbers
+std::vector <char> factorial(const std::vector <char> n) {  
 
-vector <short int> x, y, result;
+	std::vector <char> One{ 0b01 };
 
-x = v1; y = v2;
+	size_t nullElem = 0;
 
-if (x.size() < y.size()) swap(x, y); // // Длина вектора x всегда максимальна
+	//Checks that all elements in the vector are zero equals
+	for (size_t i = 0; i < n.size(); ++i) { if (n[i] == 0) ++nullElem; }   
 
-y.insert (y.end(), x.size() - y.size(), 0); // Добавляем нули в конец вектора к меньшему числу до длины большего
+	//The end of recursion
+	if (nullElem == n.size()) return One;      
 
-	for (size_t i = 0; i < x.size(); ++i) {
-	   
-			result.push_back(x[i] - y[i]);             //Простое вычитание векторов по элементам, дающее отрицательные значения в некоторых случаях
-	}
-
-size_t Logic = 0;
-	                            // Поиск отрицательных значений и последовательный перенос единиц из старших разрядов
-	while (Logic < result.size() - 1 ) {
-
-		for (size_t i = 0; i < result.size(); ++i) {
-
-			if (result [i] < 0 && i < result.size() - 1 ) {result [i + 1] -= 1; result [i] += 10;}				
-		}
-
-		Logic = 0;	                                          //Проверка на наличие отрицательных значений
-		for (size_t i = 0; i < result.size(); ++i) {
-
-			if (result [i] >= 0) Logic++;
-		
-		}
-	}
-
-return result;
-}
-
-
-
-
-vector <short int> Vectorizator(short int n) {    //Функция преобразует входящее натуральное число в вектор по разрядам
-
-vector <short int> result;
-
-		while (n > 0) {
-
-			result.push_back (n % 10);
-			n = n / 10;
-		}
-
-return result;
-}
-
-
-
-vector <short int> Factorial(const vector <short int> n) {  //Факториал через рекурсию. Работает на порядки!!! быстрее обычного цикла.
-
-	vector <short int> One = { 1 };
-
-	size_t null = 0;
-
-	for (size_t i = 0; i < n.size(); ++i) { if (n [i] == 0) ++null;}   // Проверка всех элементов на равенство нулю
-	
-	if (null == n.size()) return One;      // Конец рекурсии
-
-	return n * Factorial (n - One);            //Рекурсивная функция факториала!
+	//Recursive invoke
+	return n * factorial(n - One);          
 
 }
 
+//  Returns factorial of a big number using simple iteration cycle
+std::vector <char> factorial_iteration_cycle(unsigned long long n) {
 
-vector <short int> Factorial_easy (short int n) { //Факториал через цикл
+	std::vector <char> T{ 0b01 };
+	std::vector <char> iter;
 
-vector <short int> T = {1};
-vector <short int> iter (1);
+	for (unsigned long long k = 1; k < n + 1; ++k) {
 
-	for (short int k = 1; k < n + 1; ++k) {
-
-		iter = Vectorizator (k);
-		T = T * iter; 
+		iter = vectorizator(k);
+		T = T * iter;
 
 	}
-return T;	
-}
-
-
-short int main()
-{
-	vector <short int> vector1 = { 1, 2, 3, 4, 5, 6, 7, 8 };
-	vector <short int> vector2 = { 9, 9, 9, 9, 9, 9, 6, 8 };
-	vector <short int> output_vector;
-	short int n;
-	cout << "Enter the number" << endl;
-	cin >> n;
-	output_vector = Factorial (Vectorizator(n)); 
-	//catch (const std::string &str) {
-	//output_vector = Factorial_easy(n); 
-	//output_vector = vector1 - vector2;
-	
-	
-		//if (n < 2501) output_vector = Factorial (Vectorizator(n)); // До 2500 расчет быстрым методом рекурсии, больше - медленным, но бесконечным циклом
-		//else output_vector = Factorial_easy (n);
-	
-	
-
-	for (short int i = output_vector.size() - 1; output_vector [i] == 0; --i) {  //Удаление образующихся нулей в старших разрядах, сокращение длины вектора
-
-			output_vector.resize (output_vector.size() - 1);
-
-			}
-
-	reverse(output_vector.begin(), output_vector.end()); // Разворачиваем вектор для чтения старшими разрядами сначала
-
-	for (size_t i = 0; i < output_vector.size(); ++i) {
-
-		cout << output_vector[i] << " ";                  // Выводим в поток вектор результата
-	}
-
-	cout << endl << "Factorial has " << output_vector.size() << " digits!";
-
-
-	return 0;
+	return T;
 }
