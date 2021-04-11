@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
+    <ClCompile Include="Factorial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DigitVectorOperators.cpp">
@@ -23,7 +23,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BigFactorialProject.h">
+    <ClInclude Include="Factorial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

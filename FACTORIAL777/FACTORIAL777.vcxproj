@@ -113,10 +113,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DigitVectorOperators.cpp" />
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Factorial.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BigFactorialProject.h" />
+    <ClInclude Include="Factorial.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

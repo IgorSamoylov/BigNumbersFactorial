@@ -19,7 +19,7 @@ vector <char> operator + (vector <char>& x, vector <char>& y)
 	}
 
 	//Second step: Find overloaded bits and makes augment in a higher bits
-	size_t isPresentDigit;
+	size_t isDigit;
 	char k;
 	do
 	{
@@ -37,12 +37,12 @@ vector <char> operator + (vector <char>& x, vector <char>& y)
 			}
 		}
 		//Testing the result vector for bits that contains numbers but not digits only
-		isPresentDigit = 0;
+		isDigit = 0;
 		for (size_t i = 0; i < result.size(); ++i) {
-			if (result[i] < 10) ++isPresentDigit;
+			if (result[i] < 10) ++isDigit;
 		}
 
-	} while (isPresentDigit < result.size() - 1);
+	} while (isDigit < result.size() - 1);
 	return result;
 }
 
@@ -87,17 +87,17 @@ vector <char> operator - (const vector <char>& v1, const vector <char>& v2) {
 	}
 
 	// Finding the negative numbers and sequential transfer the ones from a higher bits 
-	size_t isPresentPositive = 0;
-	while (isPresentPositive < result.size() - 1) {
+	size_t isPositive = 0;
+	while (isPositive < result.size() - 1) {
 
 		for (size_t i = 0; i < result.size(); ++i) {
 			if (result[i] < 0 && i < result.size() - 1) { result[i + 1] -= 1; result[i] += 10; }
 		}
 
 		//Testing for a negative numbers presence in bits
-		isPresentPositive = 0;
+		isPositive = 0;
 		for (size_t i = 0; i < result.size(); ++i) {
-			if (result[i] >= 0) isPresentPositive++;
+			if (result[i] >= 0) isPositive++;
 		}
 	}
 	return result;
