@@ -4,13 +4,12 @@
 using namespace std;
 
 // Returns the sum of a digit vectors using oveloaded operator +
-vector <char> operator + (vector <char>& x, vector <char>& y)
-{
+vector <char> operator + (vector <char>& x, vector <char>& y) {
 	vector <char> result;
 	
 	// Vector y will always has max length
 	if (x.size() > y.size()) swap(x, y);
-	// Filling vector x with zeros in tail to conform vector y
+	// Filling vector x with zeros in a tail to conform vector y
 	x.insert(x.end(), y.size() - x.size(), 0);
 
 	// First step: Easy summing the elements of vectors
@@ -48,16 +47,15 @@ vector <char> operator + (vector <char>& x, vector <char>& y)
 
 
 //Returns product of a two digit vector using overloaded operator *
-vector <char> operator * (const vector <char>& x, const vector <char>& y)
-{
+vector <char> operator * (const vector <char>& x, const vector <char>& y) {
 	vector <char> term_one, term_two;
 
 	for (size_t i = 0; i < x.size(); ++i) {
-		//Fills the vector of current sum by multiplication of each bit
+		//Fills the vector of current sum by performing multiplication of each bit
 		for (size_t k = 0; k < y.size(); ++k) {
 			term_one.push_back(x[i] * y[k]);
 		}
-		// Insert zeros in head of the vector for provide shifting 
+		// Insert zeros in a head of the vector for provide shifting 
 		term_one.insert(term_one.begin(), i, 0);
 		// Summation of the two equal sized vectors
 		term_two = term_one + term_two;
@@ -65,6 +63,26 @@ vector <char> operator * (const vector <char>& x, const vector <char>& y)
 		term_one.clear();
 	}
 	return term_two;
+}
+
+//Returns product of a two digit vectors with r-value reference for a second and overloads operator *=
+void operator *= (vector <char>& x, vector<char>&& y) {
+	vector <char> term_one, term_two;
+
+	for (size_t i = 0; i < x.size(); ++i) {
+		//Fills the vector of current sum by performing multiplication of each bit
+		for (size_t k = 0; k < y.size(); ++k) {
+			term_one.push_back(x[i] * y[k]);
+		}
+		// Insert zeros in a head of the vector for provide shifting 
+		term_one.insert(term_one.begin(), i, 0);
+		// Summation of the two equal sized vectors
+		term_two = term_one + term_two;
+		//x = x + term_one;
+		// Clearing the vector of current summ
+		term_one.clear();
+	}
+	x = term_two;
 }
 
 
@@ -78,15 +96,15 @@ vector <char> operator - (const vector <char>& v1, const vector <char>& v2) {
 	// Vector x length is always max
 	if (x.size() < y.size()) swap(x, y);
 
-	// Filling smallest vector y with the zeros in tail
+	// Filling the smallest vector y with zeros in a tail
 	y.insert(y.end(), x.size() - y.size(), 0);
 
-	//Easy subtraction of vectors that provides some negative numbers in a bits
+	//Easy subtraction of the vectors that provides some negative numbers in a bits
 	for (size_t i = 0; i < x.size(); ++i) {
 		result.push_back(x[i] - y[i]);
 	}
 
-	// Finding the negative numbers and sequential transfer the ones from a higher bits 
+	// Finding the negative numbers and sequential downshift transfer the ones from a higher bits 
 	size_t isPositive = 0;
 	while (isPositive < result.size() - 1) {
 
@@ -94,7 +112,7 @@ vector <char> operator - (const vector <char>& v1, const vector <char>& v2) {
 			if (result[i] < 0 && i < result.size() - 1) { result[i + 1] -= 1; result[i] += 10; }
 		}
 
-		//Testing for a negative numbers presence in bits
+		//Testing for a negative numbers presence in the bits
 		isPositive = 0;
 		for (size_t i = 0; i < result.size(); ++i) {
 			if (result[i] >= 0) isPositive++;

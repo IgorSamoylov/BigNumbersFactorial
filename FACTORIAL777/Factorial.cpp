@@ -17,7 +17,8 @@ void main()
 	std::cin >> n;
 	//TODO: check the number input
 	
-	
+	//output_vector = factorial_iteration_cycle(n);
+
 	//If n < 1301 program will use fast recursion method, else will use more slow cycle 
 	if (n < 1301) output_vector = factorial(vectorizator(n));
 	
@@ -77,7 +78,7 @@ std::vector <char> factorial_iteration_cycle(unsigned long long n) {
 	
 	for (unsigned long long k = 1; k < n + 1; ++k) {
 
-		T = T * vectorizator(k);
+		T *= vectorizator(k);
 	}
 	return T;
 }
