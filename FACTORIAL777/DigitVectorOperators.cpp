@@ -78,15 +78,15 @@ vector <char> operator - (const vector <char>& v1, const vector <char>& v2) {
 	// Vector x length is always max
 	if (x.size() < y.size()) swap(x, y);
 
-	// Filling smallest vector y with zeros in tail
+	// Filling smallest vector y with the zeros in tail
 	y.insert(y.end(), x.size() - y.size(), 0);
 
-	//Easy subtraction of vectors that provides some negative numbers in bits
+	//Easy subtraction of vectors that provides some negative numbers in a bits
 	for (size_t i = 0; i < x.size(); ++i) {
 		result.push_back(x[i] - y[i]);
 	}
 
-	// Finding the negative numbers and sequential transfer ones from higher bits 
+	// Finding the negative numbers and sequential transfer the ones from a higher bits 
 	size_t isPresentNegative = 0;
 	while (isPresentNegative < result.size() - 1) {
 
