@@ -54,17 +54,18 @@ std::vector <char> vectorizator(unsigned long long n) {
 // Recursive implementation of Factorial calculating for a big numbers
 std::vector <char> factorial(const std::vector <char> n) {  
 
-	std::vector <char> One{ 0b01 };
+	std::vector <char> One{ 0b1 };
+	//std::vector <char>* One_ptr = &One;
 
 	size_t nullElem = 0;
 
-	//Checks that all elements in the vector are zero equals
+	//Checks that the all elements in the vector are zero equals
 	for (size_t i = 0; i < n.size(); ++i) { if (n[i] == 0) ++nullElem; }   
 
 	//The end of recursion
 	if (nullElem == n.size()) return One;      
 
-	//Recursive invoke
+	//Provide recursive invoke
 	return n * factorial(n - One);          
 
 }
@@ -72,7 +73,7 @@ std::vector <char> factorial(const std::vector <char> n) {
 //  Returns factorial of a big number using simple iteration cycle
 std::vector <char> factorial_iteration_cycle(unsigned long long n) {
 
-	std::vector <char> T{ 0b01 };
+	std::vector <char> T{ 0b1 };
 	std::vector <char> iter;
 
 	for (unsigned long long k = 1; k < n + 1; ++k) {
