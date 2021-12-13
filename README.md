@@ -1,5 +1,2 @@
 # BigNumbersFactorial
-THIS PROGRAM IMPLEMENTS FACTORIAL CALCULATION FOR A VERY BIG NUMBERS USING VECTORS THAT
-PRESENT A DIGITS OF NUMBER IN EACH ELEMENT
-@author Igor Samoylov
-2021
+This program implements factorial calculation for a very big numbers. For this purpose was made short C++ library for mathematical operations with any length Big Integer numbers.
