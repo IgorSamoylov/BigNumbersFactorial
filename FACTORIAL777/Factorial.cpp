@@ -1,5 +1,5 @@
 /*
-	* This programm implements factorial calculation for a big integer numbers.
+	* This program implements factorial calculation for a big integer numbers.
 */
 
 #include "Factorial.h"
@@ -11,7 +11,7 @@ void main()
 	std::cout << "Enter the number" << std::endl;
 	std::cin >> n;
 	
-	//If n < 1301 programm will use fast recursion method, else will use more slow cycle 
+	//If n < 1301 program will use fast recursion method, else will use more slow cycle 
 	if (n < 1301) output_vector = factorial(vectorizator(n));
 	
 	else output_vector = factorial_iteration_cycle(n); 
