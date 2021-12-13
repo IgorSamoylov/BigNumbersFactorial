@@ -114,6 +114,8 @@
   <ItemGroup>
     <ClCompile Include="DigitVectorOperators.cpp" />
     <ClCompile Include="Factorial.cpp" />
+    <ClCompile Include="FactorialComputeAlgorithms.cpp" />
+    <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Factorial.h" />

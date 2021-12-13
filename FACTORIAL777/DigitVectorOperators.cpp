@@ -4,7 +4,8 @@
 using namespace std;
 
 // Returns the sum of a digit vectors using oveloaded operator +
-vector <char> operator + (vector <char>& x, vector <char>& y) {
+vector<char> operator + (vector <char> x, vector <char> y) { // Copying vectors into function
+
 	vector <char> result;
 	
 	// Vector y will always has max length
@@ -31,11 +32,11 @@ vector <char> operator + (vector <char>& x, vector <char>& y) {
 				result[i] = k % 10;
 				if (i < result.size() - 1) result[i + 1] += k / 10;
 
-				// Compliting the result vector with a new higher bits
+				// Completing the result vector with a new higher bits
 				else result.emplace(result.end(), k / 10);
 			}
 		}
-		//Testing the result vector for bits that contains numbers but not digits only
+		// Testing the result vector for bits that contains numbers but not digits only
 		isDigit = 0;
 		for (size_t i = 0; i < result.size(); ++i) {
 			if (result[i] < 10) ++isDigit;
@@ -47,7 +48,8 @@ vector <char> operator + (vector <char>& x, vector <char>& y) {
 
 
 //Returns product of a two digit vector using overloaded operator *
-vector <char> operator * (const vector <char>& x, const vector <char>& y) {
+vector<char> operator * (const vector <char>& x, const vector <char>& y) {
+
 	vector <char> term_one, term_two;
 
 	for (size_t i = 0; i < x.size(); ++i) {
@@ -87,11 +89,9 @@ void operator *= (vector <char>& x, vector<char>&& y) {
 
 
 //Returns result of subtraction for a two digit vectors using overloaded operator -
-vector <char> operator - (const vector <char>& v1, const vector <char>& v2) {
+vector<char> operator - (vector <char> x, vector <char> y) {
 
-	vector <char> x, y, result;
-
-	x = v1; y = v2;
+	vector <char> result;
 
 	// Vector x length is always max
 	if (x.size() < y.size()) swap(x, y);
